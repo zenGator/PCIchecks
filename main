@@ -48,7 +48,9 @@ Sub nextCheckBox()
     End If
     Selection.NextField
     Selection.NextField
-    
+    If Not Selection.Information(wdInFieldCode) Then
+        Exit Sub
+    End If
     While Not Selection.FormFields(1).CheckBox
             Selection.NextField
     Wend
@@ -62,6 +64,10 @@ Sub PrevCheckBox()
 ' Macro1 Macro
 '
 '
+    If Not Selection.Information(wdInFieldCode) Then
+        Exit Sub
+    End If
+
     If Selection.FormFields(1).CheckBox Then
         Selection.FormFields(1).Range.Font.ColorIndex = wdAuto
     End If
