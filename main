@@ -1,0 +1,88 @@
+Sub CheckACheckBox()
+'
+' CheckACheckBox Macro
+'
+' mapped to Ctrl-Alt-Down
+' related:
+'   C+A+Right for next
+'   C+A+Left for prev
+'   C+A+S+Down to remove red outline
+'
+
+    If Selection.Information(wdInFieldCode) Then
+        With Selection.FormFields(1)
+            .EntryMacro = ""
+            .ExitMacro = ""
+            .Enabled = True
+            .OwnHelp = False
+            .HelpText = ""
+            .OwnStatus = False
+            .StatusText = ""
+            With .CheckBox
+                .AutoSize = True
+                .Size = 10
+                .Default = Not (.Default)
+                '.Default=True
+            End With
+        End With
+        Selection.FormFields(1).Range.Font.ColorIndex = wdAuto
+        Selection.NextField
+        Selection.NextField
+        While Not Selection.FormFields(1).CheckBox
+            'Selection.NextField
+            Selection.NextField
+          Wend
+        Selection.MoveLeft
+        Selection.FormFields(1).Range.Font.ColorIndex = wdRed
+        
+    End If
+    
+End Sub
+
+Sub nextCheckBox()
+'20201113:zG
+    If Selection.Information(wdInFieldCode) Then
+    If Selection.FormFields(1).CheckBox Then
+        Selection.FormFields(1).Range.Font.ColorIndex = wdAuto
+    End If
+    End If
+    Selection.NextField
+    Selection.NextField
+    
+    While Not Selection.FormFields(1).CheckBox
+            Selection.NextField
+    Wend
+    Selection.MoveLeft
+    Selection.FormFields(1).Range.Font.ColorIndex = wdRed
+
+End Sub
+
+Sub PrevCheckBox()
+'
+' Macro1 Macro
+'
+'
+    If Selection.FormFields(1).CheckBox Then
+        Selection.FormFields(1).Range.Font.ColorIndex = wdAuto
+    End If
+    Selection.MoveLeft
+    Selection.PreviousField
+            
+    While Not Selection.FormFields(1).CheckBox
+            Selection.PreviousField
+    Wend
+    Selection.MoveLeft
+    Selection.FormFields(1).Range.Font.ColorIndex = wdRed
+
+End Sub
+
+Sub RemoveRedCheckobx()
+'
+' 20201117:zG
+'
+    If Selection.FormFields(1).CheckBox Then
+        Selection.FormFields(1).Range.Font.ColorIndex = wdAuto
+    End If
+
+End Sub
+
